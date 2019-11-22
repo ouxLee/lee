@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        .active {
+            background: #f00;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ddd;
+            display: none;
+        }
+        input{
+            width:40px;
+        }
+    </style>
+</head>
+<body>
+<div id="div2">
+    <input type="button" value="0"/>
+    <input type="button" value="1"/>
+    <input type="button" value="2"/>
+
+    <div id="d2" class="box">111</div>
+    <div id="d3" class="box">222</div>
+    <div id="d4" class="box">333</div>
+</div>
+<div id="div3">
+    <input type="button" value="0"/>
+    <input type="button" value="1"/>
+    <input type="button" value="2"/>
+
+    <div class="box">111</div>
+    <div  class="box">222</div>
+    <div  class="box">333</div>
+</div>
+<!--普通函数-->
+<script>
+//    var oParent=null;
+//    var aInput=null;
+//    var aDiv=null;
+//    window.onload = function () {
+//        oParent = document.getElementById('div2');
+//        aInput = oParent.getElementsByTagName('input');
+//        aDiv = oParent.getElementsByTagName('div');
+//        init();
+//    };
+//    function init(){
+//        for (var i = 0; i < aInput.length; i++) {
+//            aInput[i].index = i;
+//            aInput[i].onclick =change;
+//        }
+//    };
+//    function change() {
+//            for (var j = 0; j < aInput.length; j++) {
+//                aInput[j].className = '';
+//                aDiv[j].style.display = 'none';
+//            }
+//            this.className = 'active';
+//            aDiv[this.index].style.display = 'block';
+//        }
+</script>
+<script>
+  /** 面向对象
+    1、全局变量就是属性
+    2、函数就是方法
+    3、onload就是创建对象
+    4.改this指向问题-->尽量让面向对象中的this指向对象、
+   **/
+    window.onload=function(){
+        var t1=new Tab('div2');
+        t1.init();
+        var t2=new Tab('div3');
+        t2.autoPlay();
+    };
+    function Tab(id){
+        this.oParent = document.getElementById(id);
+        this.aInput = this.oParent.getElementsByTagName('input');
+        this.aDiv = this.oParent.getElementsByTagName('div');
+        this.iNow=0;
+    }
+    Tab.prototype.init=function(){
+        var that=this;
+        for (var i = 0; i < that.aInput.length; i++) {
+            that.aInput[i].index = i;
+            that.aInput[i].onmouseover =function(){
+                that.change(this);
+            };
+        }
+    };
+  Tab.prototype.change=function(obj){
+      for (var j = 0; j < this.aInput.length; j++) {
+          this.aInput[j].className = '';
+          this.aDiv[j].style.display = 'none';
+      }
+      obj.className = 'active';
+      this.aDiv[obj.index].style.display = 'block';
+  };
+  Tab.prototype.autoPlay=function(){
+        var that=this;
+        setInterval(function(){
+            if(that.iNow==that.aInput.length){
+                that.iNow=0;
+            }
+            that.iNow++;
+            for (var j = 0; j < that.aInput.length; j++) {
+                that.aInput[j].className = '';
+                that.aDiv[j].style.display = 'none';
+            }
+            that.aInput[that.iNow-1].className = 'active';
+            that.aDiv[that.iNow-1].style.display = 'block';
+        },2000);
+    };
+</script>
+
+</body>
+</html>

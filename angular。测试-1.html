@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>ng</title>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    <p id="p2">我的第一个表达式： {{ 5 + 5 }}</p>
+    <div>{{firstName}}</div>
+    <input type="button" value="click" id="btn" ng-click="show()">
+    <input type="text" ng-model="test">
+    <textarea name="" ng-bind="test"></textarea>
+    <ul>
+        <li ng-repeat="(k,v) in arr">{{arr[k]}}是{{v}}</li>
+    </ul>
+    <div ng-show="isShow">1</div>
+    <div ng-show="!isShow">2</div>
+</div>
+<div ng-controller="myCtrl2">
+    <p>{{a}}</p>
+    <p ng-text="b"></p>
+    <p ng-bind="c"></p>
+    <div ng-show="isShow">ff</div>
+    <input type="button" value="add" ng-click="add()">
+    <input type="button" value="remove" ng-mouseover="remove()">
+    <input type="text" ng-model="isShow">
+    <my-list></my-list>
+</div>
+<script src="js/jquery-3.1.1.js"></script>
+<script src="js/angular.js"></script>
+<script>
+    var app = angular.module('myApp', []);
+    app.directive('myList', function () {
+        return {
+            template: `<form><input type="button" value="click" ng-click="fn()"><input type="text" placeholder="姓名"></form>`,
+            restrict: 'EA',
+            link: function ($scope, elm, attr, controller) {
+                $scope.fn=function () {
+                    console.log('在里面操作事件');
+                    $scope.a = 1234;
+                    $scope.b = 3456;
+                    $scope.c = 6786;
+                }
+            },
+            replace:true
+        }
+    });
+    app.factory('myService',function () {
+        return{
+            showName:function (name) {
+                this.name=name||'null';
+                alert(this.name);
+            }
+        }
+    });
+    app.controller('myCtrl', ['$scope','myService',function ($scope,myService) {
+        $scope.firstName = "John";
+        $scope.lastName = "Doe";
+        $scope.test = '';
+        $scope.arr = [1, 2, 3, 4, 5];
+        $scope.isShow = true;
+        $scope.show=function(){
+            myService.showName($scope.test);
+            document.title="anglar!";
+        }
+    }]);
+    app.controller('myCtrl2', function ($scope) {
+//        $scope={
+//            a:123,
+//            b:456,
+//            c:789,
+//            isShow:0,
+//            add:function () {
+//                console.log(1);
+//                console.log($scope);
+//                $scope.isShow++;
+//            }
+//        };
+        $scope.a = 123;
+        $scope.b = 345;
+        $scope.c = 678;
+        $scope.isShow = 0;
+        $scope.add = function () {
+            $scope.isShow++;
+        };
+        $scope.remove = function () {
+            $scope.isShow--;
+        };
+
+
+    });
+    $("#btn").on('click', function () {
+        $('#p2').toggle();
+    });
+    console.log(app);
+</script>
+</body>
+</html>

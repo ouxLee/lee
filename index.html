@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <link rel="stylesheet" href="skins/all.css"/>
+    <style>
+        a:link{
+            color: #3DA0DB;
+        }
+        a:visited{
+            color:#ff0000;
+        }
+        a:hover{
+            color:#24AA7A;
+        }
+        a:active{
+            color: yellow;
+        }
+        .wrap{
+            overflow: hidden;
+        }
+        .left{
+            float:left;
+            height:200px;
+            width:200px;
+            background: red;
+        }
+        .right{
+            background: yellow;
+            float: right;
+            height:200px;
+            width:200px;
+        }
+    </style>
+
+</head>
+<body >
+<div class="wrap">
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+<label>
+    <input type="checkbox" name="quux[1]" >
+    Foo
+    <img src="img/5101005.png" alt="text" title="图片" >
+</label>
+<input type="text" id="date">
+<label for="baz[1]">Bar</label>
+<input type="radio" name="quux[2]" id="baz[1]" >
+<a href="#">click</a>
+<label for="baz[2]">Bar</label>
+<input type="radio" name="quux[2]" id="baz[2]">
+<script src="js/jquery-3.1.1.js"></script>
+<script src="js/icheck.js"></script>
+<script>
+    $('input').iCheck({
+        checkboxClass : 'icheckbox_square-red',
+        radioClass : 'iradio_square-blue'
+    });
+   let a={
+       x:1,
+       y:2,
+       z:3
+   };
+   let b={
+       x:2,
+       w:10
+   };
+    window.status='已经选中该文本框';
+   function date() {
+       var t=new Date();
+       var y=t.getFullYear();
+       var m=t.getMonth()+1;
+       var d=t.getDate();
+       var day=t.getDay();
+       var h=t.getHours();
+       var time=t.getTime();
+       var s=t.getSeconds();
+       console.log(t,y,m,d,day,h,time,s);
+       var timer =setInterval(function(){
+           m++;
+           $('#date').val(m);
+       },1000);
+
+   };
+   date();
+   var div=document.createElement('div');
+   $(div).html('这是一个div！');
+   document.body.appendChild(div);
+   div.addEventListener('click',function a(){
+       alert(1);
+   });
+    div.addEventListener('mouseover',function a(){
+       // alert(2);
+    });
+
+    function extend(obj1, obj2) {
+        for (let attr in obj2) {
+            obj1[attr] = obj2[attr];
+        }
+    }
+    extend(a,b);
+    console.log(a);
+</script>
+</body>
+</html>

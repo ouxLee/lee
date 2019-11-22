@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin:0;padding:0;
+        box-sizing: border-box;
+        }
+        .box{
+            width:400px;height:400px;position:relative;
+            border:1px solid #ddd;
+          overflow: hidden;margin:0 auto;
+        }
+        .box img{
+            max-width:100%;
+            max-height:100%;
+        }
+        .box span{
+            position: absolute;
+            top:0;
+            left:0;
+           background: #000;opacity: .5;filter: alpha(opacity=50);
+            height:100px;display: none;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <img src="img/2.jpg" alt=""/>
+    <span></span>
+</div>
+<script src="js/jquery-3.1.1.js"></script>
+<script>
+    $(function(){
+        var box=$('.box');
+        var span=$('.box span');
+        box.mouseover(function(e){
+            var e=e||window.event;
+            console.log(e.clientX,e.clientY);
+            var left= e.clientX-box.offset().left-span.width()/2+'px';
+            var top= e.clientY-box.offset().top-span.height()/2+'px';
+            span.css({'display':'block'});
+            span.css({'left':left,'top':top});
+        }).mouseout(function(){
+            span.css({'display':'none'});
+        });
+
+    })
+</script>
+</body>
+</html>

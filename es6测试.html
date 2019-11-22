@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>es6测试</title>
+</head>
+<body>
+<a href="mailto:691245670@qq.com?cc=291429775@qq.com&subject=[邮件主题]&body=腾讯诚邀您参与%0A%0Ahttp://www.baidu.com%0A%0A<img src='images/1.jpg' />">点击我发邮件</a>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<script>
+    "use strict";
+    //    var obj = {
+    //        foo: function () {
+    //        },
+    //        o: {},
+    //        arr: [],
+    //        str: 'dfd'
+    //    };
+    //    var {a, b, c,d}=obj;
+    //    console.log(a, b, c,d);
+    //    var x, y;
+    //    x = 1;
+    //    y = 2;
+    //    var [y, x]=[x, y];
+    //    let str = 'mfdks';
+    //    console.log(str.startsWith('m'));
+    //    var div = `<div id="idmain">${str.repeat(10)}</div>`;
+    //    console.log(div);
+    //    var num = 0b11;
+    //    console.log(num);
+    //    var n=1.221;
+    //    console.log(Math.trunc(n));
+    //    var divs=document.getElementsByTagName('div');
+    ////    var eles=[].slice.call(divs);  //类数组转化成数组
+    //    var eles=Array.from(divs);
+    //   // console.log(eles);
+    //    //字符串转数组
+    //    var str='fsdfsdffdstgh'; //类数组转化成z真正的数组
+    //    //console.log(Array.from(str));
+    //    var arr=Array.of(1,2,3,4);//把参数转化成数组
+    //    //    console.log(arr);
+    //    var a = {
+    //        name: 'a'
+    //    };
+    //    var b = {
+    //        name: 'b'
+    //    };
+    //    var c = {
+    //        age: 12,
+    //        sex:'famale'
+    //    };
+//    //    console.log(Object.assign(a,b,c));
+//    var Cat = function (name) {
+//        this.name = name;
+//    };
+//    Cat.prototype.showName = function () {
+//        return this.name;
+//    };
+//    var c1 = new Cat('tom');
+//    console.log(Object.getPrototypeOf(c1));
+//    var obj={
+//        a:1,
+//        b:2
+//    };
+//    var p1=new Proxy(obj,{
+//        get(obj,attr){
+//           console.log(obj,attr);
+//           return obj.attr;
+//        },
+//        set(obj,attr,value){
+//            console.log(obj,attr,value);
+//            obj[attr].value;
+//            return 888;
+//        }
+//    });
+//    p1.b=100;
+//    console.log(p1.b);
+    //冒泡排序
+//    Array.prototype.bubbleSort=function(){
+//        var len=this.length,tmp=null;
+//        for(var i=0;i<len-1;i++){
+//            for(var j=0;j<len-1-i;j++){
+//                if(this[j]>this[j+1]){
+//                    tmp=this[j];
+//                    this[j]=this[j+1];
+//                    this[j+1]=tmp;
+//                }
+//            }
+//        }
+//        return this;
+//    };
+    //数组去重
+//    Array.prototype.bubbleSort=function(){
+//        var newArr=[],obj={},len=this.length;
+//        for(var i=0;i<len;i++){
+//            if(!obj[this[i]]){
+//                newArr.push(this[i]);
+//                obj[this[i]]=1;
+//            }
+//        }
+//        return newArr;
+//    }
+//var arr=[2,3,3,3,1,2,1];
+//arr.bubbleSort();
+//console.log(arr.bubbleSort());
+//    var arr=[[1],[2],[[3],[4]]];
+//    Array.prototype.concat.call([],arr);
+//    console.log(Array.prototype.concat.apply([],arr));
+    
+</script>
+<script>
+//   var str='123456';
+//   var arr=str.split('');
+//   var intArr=[];
+//   intArr=arr.map(function (data) {
+//       return +data;
+//   })
+//   console.log(arr,intArr);
+    setTimeout(function(num){console.log(num)},2000,123);
+    window.onload=function () {
+        document.body.innerHTML=`<div>heihei<p>gdg</p></div>`;
+    }
+    var a='hello';
+    console.log('%c'+a,'color:red');
+    var arr=[];
+    console.log(typeof(arr));
+</script>
+</body>
+</html>

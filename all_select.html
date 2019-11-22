@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form id="form1">
+<input type='checkbox' id='id1' name='checkname' value='1' />value1
+<input type='checkbox' id='id2' name='checkname' value='2' />value2
+<input type='checkbox' id='id3' name='checkname' value='3' />value3
+</form>
+<div>
+<input type="button" id="checkall" name="checkall" value="全选" /><input type='checkbox' id='id5' name='checkname' value='2' /><br/>
+<input type="button" id="delcheckall" name="delcheckall" value="取消全选" /><input type='checkbox' id='id6' name='checkname' value='2' />
+</div>
+<script src="js/jquery-3.1.1.js"></script>
+<script>
+    $("#checkall").click(
+            function(){
+                var len=$("#form1 input[type='checkbox']").length;
+                console.log($("#form1 input[type='checkbox']").length);
+                $("input[type='checkbox']").prop('checked',true);
+                console.log($('#form1').serialize());
+                if(len){
+
+                }
+            }
+    );
+    ($("#form1").on('click','input[type="checkbox"]',function(){
+        var len=$("#form1 input[type='checkbox']").length;
+
+    }))
+    $("#delcheckall").click(
+            function(){
+                console.log($("input[type='checkbox']"));
+                $("input[type='checkbox']").prop('checked',false);
+            }
+    );
+</script>
+</body>
+</html>

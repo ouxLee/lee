@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>require</title>
+    <style>
+        div { margin:3px; width:40px; height:40px;
+            position:absolute; left:0px; top:30px;
+            background:green; display:none; }
+        div.newcolor { background:blue; }
+        span { color:red; }
+        .a{
+            width:100px;
+            outline: none;
+        }
+        .a:active{
+           background: #ff0000;
+        }
+        .a:hover{
+            cursor: pointer;
+        }
+        .b{
+            height:100px;
+        }
+        .c{
+            border-radius: 50px;
+            border:0;
+            padding: 0;margin: 0;
+        }
+    </style>
+
+</head>
+<body>
+<button id="start">Start</button>
+<button id="stop">Stop</button>
+<div data-set="123">dd</div>
+<input type="button">
+<script src="js/jquery-3.1.1.js"></script>
+<!--<script data-main="js/main" src="js/require.js"></script>-->
+<script>
+    $("#start").click(function () {
+        $('input').removeAttr('disabled');
+        $("div").show("slow");
+        $("div").animate({left:'+=200'},2000);
+        $("div").queue(function () {
+            $(this).addClass("newcolor");
+            $(this).dequeue();
+        });
+        $("div").animate({left:'-=200'},1500);
+        $("div").queue(function () {
+            $(this).removeClass("newcolor");
+            $(this).dequeue();
+        });
+        $("div").slideUp();
+    });
+    $("#stop").click(function () {
+        $("div").queue("fx", []);
+        $("div").stop();
+    });
+    $("div").data("test", { first: 16, last: "pizza!" });
+    $('div').data('set','456');
+    $('input').attr({class:'a b c',disabled:true,id:'input',"data-set":'heihei'});
+
+</script>
+</body>
+</html>

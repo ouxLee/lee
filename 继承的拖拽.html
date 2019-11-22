@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #div1, #div2 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+
+        #div2 {
+            background: #f90;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+<script>
+    window.onload = function () {
+        var drag = new Drag("div1");
+        drag.init();
+        var drag2 = new ChildDarg("div2");
+        drag2.init();
+    };
+    function Drag(id) {
+        this.oDiv = document.getElementById(id);
+        this.dirX = 0;
+        this.dirY = 0;
+    }
+    ;
+    Drag.prototype.init = function () {
+        var that = this;
+        this.oDiv.onmousedown = function (e) {
+            var e = e || window.event;
+            that.fndown(e);
+            return false;
+        };
+    };
+    Drag.prototype.fndown = function (e) {
+        var that = this;
+        this.dirX = e.clientX - this.oDiv.offsetLeft;
+        this.dirY = e.clientY - this.oDiv.offsetTop;
+        document.onmousemove = function (e) {
+            var e = e || window.event;
+            that.fnmove(e);
+        };
+        document.onmouseup = function (e) {
+            var e = e || window.event;
+            that.fnup(e);
+        };
+
+
+    };
+    Drag.prototype.fnmove = function (e) {
+        var that = this;
+
+        that.oDiv.style.left = e.clientX - that.dirX + 'px';
+        that.oDiv.style.top = e.clientY - that.dirY + 'px';
+    };
+    Drag.prototype.fnup = function () {
+        document.onmousemove = null;
+        document.onmouseup = null;
+
+    };
+    function ChildDarg(id) {
+        Drag.call(this, id);
+    }
+    extend(ChildDarg.prototype, Drag.prototype);
+
+    ChildDarg.prototype.fnmove = function (e) {
+        var that = this;
+        var L = e.clientX - that.dirX;
+        var T = e.clientY - that.dirY;
+        L = L < 0 ? 0 : L;
+        T = T < 0 ? 0 : T;
+        that.oDiv.style.left = L + 'px';
+        that.oDiv.style.top = T + 'px';
+    };
+    function extend(obj1, obj2) {
+        for (var attr in obj2) {
+            obj1[attr] = obj2[attr];
+        }
+    }
+</script>
+</body>
+</html>

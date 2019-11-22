@@ -1,0 +1,360 @@
+一、vue开发环境搭建
+1.图标字体  -->iconMoon svg图片转换成图标字体
+2.vue环境编辑器里项目目录设计
+2.1resource文件  -->图片资源
+2.2 src目录下 创建common文件夹-->公共方法、样式、字体（js、styules 、fonts）
+3、前后端分离开发
+3、前端模拟后台数据 根目录下创建data.json 模拟后端数据
+
+
+
+d盘  练习文件夹
+
+
+
+
+
+
+
+
+
+
+d:进入D盘
+cd /home 进入 '/ home' 目录'
+　　cd .. 返回上一级目录
+　　cd ../.. 返回上两级目录
+　　cd 进入个人的主目录
+　　cd ~user1 进入个人的主目录
+　　cd - 返回上次所在的目录
+　　pwd 显示工作路径
+　　ls 查看目录中的文件
+　　ls -F 查看目录中的文件
+　　ls -l 显示文件和目录的详细资料
+　　ls -a 显示隐藏文件
+　　ls *[0-9]* 显示包含数字的文件名和目录名
+　　tree 显示文件和目录由根目录开始的树形结构(1)
+　　lstree 显示文件和目录由根目录开始的树形结构(2)
+　　mkdir dir1 创建一个叫做 'dir1' 的目录'
+　　mkdir dir1 dir2 同时创建两个目录
+　　mkdir -p /tmp/dir1/dir2 创建一个目录树
+　　rm -f file1 删除一个叫做 'file1' 的文件'
+　　rmdir dir1 删除一个叫做 'dir1' 的目录'
+　　rm -rf dir1 删除一个叫做 'dir1' 的目录并同时删除其内容
+　　rm -rf dir1 dir2 同时删除两个目录及它们的内容
+　　mv dir1 new_dir 重命名/移动 一个目录
+　　cp file1 file2 复制一个文件
+　　cp dir/* . 复制一个目录下的所有文件到当前工作目录
+　　cp -a /tmp/dir1 . 复制一个目录到当前工作目录
+　　cp -a dir1 dir2 复制一个目录
+　　ln -s file1 lnk1 创建一个指向文件或目录的软链接
+　　ln file1 lnk1 创建一个指向文件或目录的物理链接
+　　touch -t 0712250000 file1 修改一个文件或目录的时间戳 - (YYMMDDhhmm)
+
+jQuery 源码学习
+1、选择器
+merge（）参数不同，将数组转化成对象、parseHTML()、makeArray（）类数组转化成数组、toArray（）对象转数组
+get()jq对象转原生集合、pushStack/()jq对象的入栈，jq内部常用的方法
+map（）返回新集合
+$.extend()扩展工具方法 $.方法名（）
+$.fn.extend()扩展jq实例方法 ：$().方法名（）
+a、当写一个对象自变量的时候
+b、当写多个自变量的时候，后面的对象都是扩展到第一个对象上
+还可以做深拷贝和浅拷贝
+--$.data() 数据缓存
+--$().data()
+--$.queue() 队列方法 执行顺序的管理 类似于数组的push（）
+--$.dequeue() 类似于数组的shift（）
+***队列中必须存储函数
+---$().attr()、$().prop、$().addClass、val  toggleClass removeAttr属性的操作
+原生设置属性
+：dom.setAttribute('title','hello')或者dom.title='hello'、dom['title']='hello'
+prop与attr 的区别
+attr 可以设置自定义属性
+jq源码中 return this的都可以进行链式操作，retune this 为当前对象
+---$().trigger(事件名) $().triggerHandler()-->主动触发事件，但不触发当前事件的默认行为
+
+---$.ajax
+$().load('url xx(过滤)',data,function(数据结果，状态，jq xhr对象){})
+$.ajax({
+url:url,
+type:type,
+dataType:"",
+data:params,
+success:function(){},
+error：function（）{}
+})传统方法
+$.ajax({url:url}).done(function(){}).fail(function(){})
+$.get('url',data{},function(){},'dataType类型')
+$.post('url',data{},function(){},'dataType类型')
+
+---oop面向对象编程
+1、过程式编程
+function（）{};
+for(){};
+if(){}else{}
+2、oop面向对象写法编程
+系统自带的对象，叫做系统对象
+2、1面向对象编程的特点
+抽象：抓住核心问题
+封装：只能通过对象访问方法
+继承：从已有对象上继承出新的对象
+多态：多对象的不同形态
+2.2 面向对象的写法
+对象下面的变量：叫做对象的属性
+对象下面的函数：叫做对象的方法
+
+2、3工厂方式——封装函数
+当new去调用一个函数：这个时候函数中的this就是创建出来的
+对象，而且函数的返回值就是this（隐式返回）-->当前对象
+new 后面调用的函数--->叫做构造函数
+function CreateFactory（）{
+this.name=name;
+this.showName=function(){
+alert(this.name)
+}
+
+}
+var obj=new CreatFactoy();
+obj.showName();
+2、4 原型
+去改写对象下面公用的方法或者属性，让公用的方法或者属性在内存中存在伊恩=
+一份（提高性能）
+原型 **类型于css中class
+普通方法 **类似于css中的style
+普通方法的优先级大于原型
+
+原型 prototype 写在构造函数的下面
+var arr=[1,2];
+Arrry.prototype.sum=function(){};
+
+1、先写构造函数
+2、构造函数.原型.方法=function（）{}
+3、var 对象=new 构造函数
+4、对象.方法（）
+
+普通写法改造成面向对象
+普通写法
+1、函数内不要嵌套函数
+2、可以有全局变量
+3、把onload中不是赋值的语句放到单独的函数中
+面向对象
+1、全局变量就是属性
+2、函数就是方法
+3、onload就是创建对象
+4.改this指向问题-->尽量让面向对象中的this指向对象、
+--toString 将对象转化成字符串
+系统对象此方法为自带，自定义对象为object下的
+Object.prototype.toString.call(obj)--->判断数据类型
+
+--对象的继承
+在原有的对象的基础上 ，略作修改，得到一个新的对象
+不影响原有对象的功能 子类可以继承父类的一些功能（代码复用）
+1、如何继承
+1、1构造函数继承
+
+2、
+a、对象的继承方法
+拷贝继承 通用型 有new无new的时候都可以
+对象不能直接赋值给另一个对象，
+用for in 循环 将a对象的属性遍历赋值给b对象的属性
+b、属性的继承用call方法，改变this指向，调用父类的构造函数 call
+
+类式继承   ：属性和方法分别继承  new构造函数
+类：js中没有类的概念，把js中的构造函数看做的类
+类式继承:var F=function(){}; F。prototype=A.prototype;-->避免属性继承，只做方法继承
+1、B.prototpe=new F();
+2、B.prototype.constucter=B;-->修正指向问题
+var b=new B();
+b就继承了A
+原型继承  无new的对象
+
+---->组件开发
+默认参数与配置参数解决参数问题，用配置参数覆盖默认参数
+
+---百度组件  自己模仿
+
+
+
+
+	面向对象的继承
+ 1、属性的继承——调用父类的构造函数，调用call方法
+2、方法的继承——for in拷贝继承jq采用拷贝继承
+ 对象的继承的其他形式
+**类似继承
+function A(){
+this.name='';
+};
+A.prototype.showName=function(){
+}
+***var F=function(){};
+（1）、F.prototype=A.prototype;**----->只继承方法、避免污染父级属性
+（2）function B(){
+A.call(this);
+};
+2、（3）B.prototype=new F();————>改变了constructer指向问题
+增加：1、（4）B.prototype.constructer=B;修正constructerzhixinag
+      2、增加一个中间函数，避免污染父级属性
+var b=new B();
+b.showName();
+
+**原型继承
+var a={
+    name:"";
+};
+var b=clone(a);
+
+function clone(obj){
+ var F=function(){};
+    F.prototype=obj;
+    return new F();
+}
+
+拷贝继承：通用型 用new 无new 都可以
+类式继承  new 构造函数形式
+原型继承  无new的对象
+
+
+2、组件开发
+ 参数问题、参数顺序问题
+解决：通过json形式传参、extend方法
+function extend(obj1, obj2) {
+for (var attr in obj2) {
+obj1[attr] = obj2[attr];
+}
+}
+什么是组件？
+面向对象的深入应用（ui组件，功能组件）
+将配置参数、方法、事件，三者进行分离
+
+创建自定义事件
+ 有利于多人协作开发代码
+ 如何去挂载自定义事件与事件函数
+
+*自定义事件：主要是跟函数有关系，就是让函数能够具备事件的某些特性
+
+
+*********js的模块化开发
+*冲突
+——可以使用命名空间，降低冲突，不能完全避免
+*依赖
+*其他一些性能问题
+sea.js
+1.引入sea.js库  ———jq冲锋陷阵的士兵，sea.js后勤维护
+2、如何变成模块
+——define（require,exports,module）三个参数
+    module：1、id 模块的唯一标识
+            2、uri：模块的绝对路径
+            3、dependcies：当前模块依赖
+            4、exports：当前模块对外接口
+                module.exports与exports
+                都是对象，前者引用后者，
+require.async():异步加载
+3、如何调用模块
+——exports:对外提供接口的对象
+——seajs.use() :调用引用js的方法,两个参数，一、模块的地址二、加载后的
+回调函数,回调函数的参数（ex）-->exports
+sea的默认根目录，：sea.js这个文件-->  加./
+4、如何依赖模块
+——require（）；引入依赖地址
+
+二、各种配置信息
+1.alias：别名配置
+2、paths：路劲配置
+3、vars：变量配置
+4、map：映射配置
+5、preload:预加载项
+6、debug：调试模式
+7、base:基础路径
+8：charset：文件编码
+
+三、插件
+1、text
+2、style
+3、combo
+4、flush
+5、debug
+6、log
+7、health
+
+四、深入学习sea.js
+    -技巧
+     use如何引入多模块——>
+     sea.js加id有利于提取
+     如何改造文件为cmd模块
+     调试接口cache
+
+
+****grunt js
+上线的版本，比如合并操作：define要多出两个参数
+一、当前模块的id
+二、依赖模块的数组
+
+******ES6
+    1.let 特性
+        1、不允许重复
+        2、没有预解析
+        3、块级作用域
+    2、const 常量
+    3、模板字符串、字符串的新方法
+        :``
+        字符串拼接
+        变量拼接 ${变量名}，大括号可以运算，可以使用方法
+    4、数值扩展
+        ES6对Math进行扩展
+        Math.trunc()去除小数点、
+        Math.sign()判断参数是正数、负数、正0、负0;
+        Math.htpot(3,4);勾股定理-->5
+    5、数组的扩展
+        1、Array.of（1,2,3,4） 把参数转化成数组
+        2、Array.from（arguments）数组转化成z真正的数组
+        3.arr.find(v,i,arr) ;找出第一个符合条件的数组元素
+        4、arr.findIndex();找出第一个符合条件的数组元素怒的位置
+        5、arr.fill() 用来填充数组
+            参数：1.填充的内容2、起始的位置3、结束位置
+        6、arr.keys();返回数组的索引值
+        7、arr.values()
+        8、arr.entries() 返回索引可value值
+        9、数组推导 var arr2=[for(valueof arr) value*2];
+
+    6、for of：类似于for in
+        vlaue的遍历，不能遍历对象
+        for(var [k,v] of arr.entries)
+
+    7、对象扩展
+        1、属性的简洁表示法
+        2、方法的简洁表示法
+        3、属性名的表达式
+                var sex='男';
+            ：var obj={
+                [sex]:false,
+                ['女'+sex]:true
+            }
+        4、Object.is(a,b)相对于===
+        5**、Object.assign(a,b);对象合并
+            相当于jq的extend方法
+        6、Object.getPrototypeOf(obj)
+            用来获取一个对象的prototype对象
+        7、Object.setPrototypeOf(obj1,obj2.prototype);
+            设置Object1的原型为obje2的原型
+        8、_proto_
+            用来读取或设置当前对象的prototype对象
+        9、Proxy:
+            用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“
+            元编程，即对编程语言进行编程
+            参数：1.要代理的目标对象 2、设置对象
+                var p1=new Proxy(obj,{
+                get(obj,attr){
+                console.log(obj,attr);
+                return obj.attr;
+                },
+                set(obj,attr,value){
+                console.log(obj,attr,value);
+
+                return 888;
+                }
+                });
+        10、Object.observe(obj,observe,[eventType])
+                用于检测对象的变化，一旦发生变化就会调用回调函数
+                eventType：add、update、delete、setPrototype、 reconfigure
+        11、Object.unobserve(obj,observe)
+                取消检测

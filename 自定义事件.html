@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义事件——拖拽</title>
+    <style>
+        body {
+            position: relative;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #div1, #div2, #div3 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+
+        #div2 {
+            left: 100px;
+            top: 0;
+            background: #f90;
+        }
+
+        #div3 {
+            left: 200px;
+            top: 0;
+            background: #f0f;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+<div id="div3"></div>
+<!--组件开发：多组对象，向兄弟之间的关系（代码复用的一种形式）-->
+<script>
+    window.onload = function () {
+        var drag = new Drag();
+        drag.init({id: "div1"});
+        bindEvent(drag, 'toUp', function () {
+            document.title = 'byebye!';
+        });
+        var drag2 = new Drag();
+        drag2.init({
+            id: "div2"
+        });
+        bindEvent(drag2, 'toDown', function () {
+            document.title = '呵呵';
+        });
+        var drag3 = new Drag();
+        drag3.init({
+            id: "div3"
+        });
+        bindEvent(drag3,'toDown',function () {
+            document.title = '嘿嘿';
+        });
+        bindEvent(drag3,'toUp',function () {
+            document.title = '哈哈';
+        });
+    };
+    function Drag() {
+        this.oDiv = null;
+        this.dirX = 0;
+        this.dirY = 0;
+        this.defaults = {
+            id: ''
+        };
+    };
+    Drag.prototype.init = function (opt) {
+        var that = this;
+        extend(that.defaults, opt);
+        this.oDiv = document.getElementById(that.defaults.id);
+        this.oDiv.onmousedown = function (e) {
+            var e = e || window.event;
+            that.fndown(e);
+            fireEvent(that,'toDown');
+            return false;
+        };
+        this.oDiv.onmouseup = function (e) {
+            var e = e || window.event;
+            that.fnup(e);
+            fireEvent(that,'toUp');
+        };
+    };
+    Drag.prototype.fndown = function (e) {
+        var that = this;
+        this.dirX = e.clientX - this.oDiv.offsetLeft;
+        this.dirY = e.clientY - this.oDiv.offsetTop;
+        document.onmousemove = function (e) {
+            var e = e || window.event;
+            that.fnmove(e);
+        };
+    };
+    Drag.prototype.fnmove = function (e) {
+        var that = this;
+
+        that.oDiv.style.left = e.clientX - that.dirX + 'px';
+        that.oDiv.style.top = e.clientY - that.dirY + 'px';
+    };
+    Drag.prototype.fnup = function () {
+        document.onmousemove = null;
+        document.onmouseup = null;
+
+    };
+    function extend(obj1, obj2) {
+        for (var attr in obj2) {
+            obj1[attr] = obj2[attr];
+        }
+    }
+    function bindEvent(obj, events, fn) {
+        obj.listeners = obj.listeners || {};
+        obj.listeners[events] = obj.listeners[events] || [];
+        obj.listeners[events].push(fn);
+        if(obj.nodeType){
+            if(obj.addEventListener){obj.addEventListener(events, fn, false);}
+        }
+    }
+    function fireEvent(obj, events) {
+        //主动触发自定义事件
+        if(obj.listeners&&obj.listeners[events]){
+            for (var i = 0; i < obj.listeners[events].length; i++) {
+                obj.listeners[events][i]();
+            }
+        }
+
+    }
+</script>
+
+</body>
+</html>

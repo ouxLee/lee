@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #div1 div,#div2 div,#div3 div,#div4 div{
+            width:200px;height:200px;border:2px solid #ddd;display: none;
+        }
+        .active{
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">
+    <input type="button" value="1"/>
+    <input type="button" value="2"/>
+    <input type="button" value="3"/>
+    <div class="">111</div>
+    <div class="">222</div>
+    <div class="">333</div>
+</div>
+<div id="div2">
+    <input type="button" value="1"/>
+    <input type="button" value="2"/>
+    <input type="button" value="3"/>
+    <div class="">111</div>
+    <div class="">222</div>
+    <div class="">333</div>
+</div>
+<div id="div3">
+    <input type="button" value="1"/>
+    <input type="button" value="2"/>
+    <input type="button" value="3"/>
+    <div class="">111</div>
+    <div class="">222</div>
+    <div class="">333</div>
+</div>
+<div id="div4">
+    <input type="button" value="1"/>
+    <input type="button" value="2"/>
+    <input type="button" value="3"/>
+    <div class="">111</div>
+    <div class="">222</div>
+    <div class="">333</div>
+</div>
+<input type="button" value="点击" id="alert"/>
+<script src="js/jquery-3.1.1.js"></script>
+<!--<script>-->
+    <!--/***-->
+     <!--*options :events delay 参数-->
+     <!--*Methods: newSel() getContent()-->
+     <!--* Events:beforeClick afterClick 自定义事件-->
+     <!--*jq中的主动触发-->
+     <!--*-->
+     <!--* **/-->
+    <!--$(function(){-->
+        <!--var t1=new Tap();-->
+        <!--t1.init('div1',{});-->
+        <!--var t2=new Tap();-->
+        <!--t2.init('div2',{-->
+            <!--events:'mouseover'-->
+        <!--});-->
+        <!--var t3=new Tap();-->
+        <!--t3.init('div3',{-->
+            <!--events:'mouseover',-->
+            <!--delay:300-->
+        <!--});-->
+        <!--var t4=new Tap();-->
+        <!--t4.init('div4',{-->
+        <!--});-->
+        <!--t4.nowSel(2);-->
+        <!--$('#alert').on('click',function(){-->
+           <!--alert(t4.getContent());-->
+        <!--});-->
+        <!--//自定义事件-->
+        <!--$(t4).on('beforeClick',function(){-->
+            <!--alert(t4.getContent());-->
+        <!--});-->
+        <!--$(t4).on('afterClick',function(){-->
+            <!--alert(t4.getContent());-->
+        <!--})-->
+
+
+    <!--});-->
+    <!--function Tap(){-->
+        <!--this.oParent=null;-->
+        <!--this.aInput=null;-->
+        <!--this.aDiv=null;-->
+        <!--this.iNow=0;-->
+        <!--this.settings={-->
+            <!--//默认参数-->
+            <!--events:'click',-->
+            <!--delay:0-->
+        <!--}-->
+    <!--}-->
+    <!--Tap.prototype.init=function(oParent,opt){-->
+        <!--$.extend(this.settings,opt);-->
+        <!--this.oParent=$('#'+oParent);-->
+        <!--this.aDiv=this.oParent.find('div');-->
+        <!--this.aInput=this.oParent.find('input');-->
+        <!--this.change();-->
+    <!--};-->
+    <!--Tap.prototype.change=function(){-->
+        <!--var This=this;-->
+        <!--var timer=null;-->
+        <!--this.aInput.on(this.settings.events,function(){-->
+            <!--var that=this;-->
+            <!--if(This.settings.events=='mouseover'&&This.settings.delay){-->
+                <!--timer=setTimeout(function(){-->
+                    <!--show(that);-->
+                <!--},This.settings.delay)-->
+            <!--}else{-->
+                <!--show(this);-->
+            <!--}-->
+
+        <!--}).mouseout(function(){-->
+            <!--clearTimeout(timer);-->
+        <!--});-->
+        <!--function show(obj){-->
+            <!--$(This).trigger('beforeClick');-->
+            <!--This.aInput.attr('class','');-->
+            <!--This.aDiv.css('display','none');-->
+            <!--$(obj).attr('class','active');-->
+            <!--This.aDiv.eq($(obj).index()).css('display','block');-->
+            <!--This.iNow=$(obj).index();-->
+            <!--$(This).trigger('afterClick');-->
+        <!--}-->
+    <!--};-->
+    <!--Tap.prototype.nowSel=function(index){-->
+        <!--this.aInput.attr('class','');-->
+        <!--this.aDiv.css('display','none');-->
+        <!--this.aInput.eq(index).attr('class','active');-->
+        <!--this.aDiv.eq(index).css('display','block');-->
+        <!--this.iNow=index;-->
+    <!--};-->
+    <!--Tap.prototype.getContent=function(){-->
+        <!--return this.aDiv.eq(this.iNow).html();-->
+    <!--}-->
+<!--</script>-->
+<script>
+   $.extend({zt:{a:1}});
+   $.extend($.zt,{a:function () {
+       alert(1);
+   }});
+</script>
+</body>
+</html>

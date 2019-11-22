@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>
+        new document
+    </title>
+    <script type="text/javascript" src="js/jquery-3.1.1.js">
+    </script>
+    <script type="text/javascript">
+        var checkAll = {
+            check: function () {
+                $("li input[name='input_list']").click(function () {
+                    var counts = $("li input[name='input_list']").length;
+                    var checkcounts = $("li input[name='input_list']:checked").length;
+                    if (counts == checkcounts) {
+                        $("#chkAllFlags").prop("checked", true);
+                    } else {
+                        $("#chkAllFlags").prop("checked", false);
+                    }
+                });
+                $("input[flag='1']").click(function () {
+                    var checktemp = $(this).prop('checked');
+                    $("input[name='input_list']").each(function () {
+                        $(this).prop('checked', checktemp)
+                    });
+
+                });
+            }
+        };
+        $(function () {
+            checkAll.check();
+        })
+    </script>
+</head>
+
+<body>
+<div class="advancExpand02" id="salesFlagList">
+    <div class="advancExpand01">
+                <span>
+                    <input type="checkbox" class="checkboxN5 checkboxNhover" id="chkAllFlags"
+                           flag="1" name="input_list">
+                </span>
+                <span>
+                    特价促销
+                </span>
+    </div>
+    <div class="advancExpand02Con" id="salesFlagSubList">
+        <ul class="advancExpand02ul">
+            <li>
+                <input type="checkbox" flag="2" name="input_list">
+                清仓
+            </li>
+            <li>
+                <input type="checkbox" flag="4" name="input_list">
+                断码
+            </li>
+            <li>
+                <input type="checkbox" flag="8" name="input_list">
+                特惠
+            </li>
+        </ul>
+        <a href="javascript:void(0)" class="searchbarBtnStrong" id="selectSalesFlag">
+            解决
+        </a>
+    </div>
+</div>
+</body>
+
+</html>

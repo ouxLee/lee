@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var A=function () {
+        this.name='日天';
+        this.age=25;
+    };
+    A.prototype.showName=function () {
+        console.log(this.name)
+    };
+    var F=function () {
+
+    };
+    F.prototype=A.prototype;
+    var B=function () {
+        A.call(this);
+    };
+    B.constructor=B;
+    B.prototype=new F();
+    B.prototype.showAge=function () {
+        console.log(this.age);
+    }
+
+    var b=new B();
+    b.showName();
+</script>
+</body>
+</html>

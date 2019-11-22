@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>苹果菜单显示效果</title>
+    <style>
+        .header{
+            text-align: center;
+        }
+        .container{
+            position: absolute;bottom: 0;left:0;
+            width:100%;height:auto;overflow: hidden;
+            text-align: center;
+        }
+        .container img{
+            width:100px;
+        }
+    </style>
+</head>
+<body>
+<div class="header" id="head">
+    <input type="text"/><input type="text"/><input type="text"/><input type="text"/><input type="text"/>
+</div>
+<div class="container" id="main">
+    <img src="img/5101005.png" alt=""/>
+    <img src="img/5101005.png" alt=""/>
+    <img src="img/5101005.png" alt=""/>
+    <img src="img/5101005.png" alt=""/>
+    <img src="img/5101005.png" alt=""/>
+</div>
+<script>
+    var p=Math.pow(2,5);//2的5次方
+    var b=Math.pow(9,1/2);//3的开9次方
+    console.log(p,b);
+window.onload=function(){
+    var box=document.getElementById('main');
+    var inp=document.getElementById('head');
+    var img=box.getElementsByTagName('img');
+    var input=inp.getElementsByTagName('input');
+    document.onmousemove=function(e){
+        var e=e||window.event;
+        var x= e.clientX;
+        var y= e.clientY;
+        for(var i=0;i<img.length;i++){
+            var w=img[i].offsetLeft+img[i].offsetWidth/2;
+            var h=img[i].offsetTop+img[i].offsetHeight/2+box.offsetTop;
+            var a=x-w;
+            var b=y-h;
+            var c=Math.sqrt(Math.pow(a,2)+Math.pow(b,2));
+            var scale=1-c/500;
+            if(scale<0.5){
+                scale=0.5;
+            }
+            img[i].style.width=scale*200+'px';
+            input[i].value=scale;
+
+        }
+    }
+}
+</script>
+</body>
+</html>

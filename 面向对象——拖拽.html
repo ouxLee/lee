@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<script>
+//    var oDiv=null,dirX='',dirY='';
+//    window.onload = function () {
+//        oDiv = document.getElementById('div1');
+//       dirX = 0;
+//        dirY = 0;
+//        oDiv.onmousedown = fndown;
+//    }
+//    function fndown(e) {
+//        var e = e || window.event;
+//        dirX = e.clientX - oDiv.offsetLeft;
+//        dirY = e.clientY - oDiv.offsetTop;
+//        document.onmousemove = fnmove;
+//        document.onmouseup =fnup;
+//
+//    };
+//    function fnmove(e) {
+//        var e = e || window.event;
+//        oDiv.style.left = e.clientX - dirX + 'px';
+//        oDiv.style.top = e.clientY - dirY + 'px';
+//    };
+//    function fnup(e) {
+//        var e = e || window.event;
+//        document.onmousemove = null;
+//        document.onmouseup = null;
+//    };
+    window.onload=function(){
+        var drag=new Drag("div1");
+        drag.init();
+    };
+    function  Drag(id){
+        this.oDiv = document.getElementById(id);
+        this.dirX = 0;
+        this.dirY = 0;
+    };
+    Drag.prototype.init=function() {
+        var that=this;
+        this.oDiv.onmousedown=function(e){
+            var e = e || window.event;
+            that.fndown(e);
+            return false;
+        };
+    };
+    Drag.prototype.fndown=function(e) {
+        var that=this;
+        this.dirX = e.clientX - this.oDiv.offsetLeft;
+        this.dirY = e.clientY - this.oDiv.offsetTop;
+        document.onmousemove = function(e){
+            var e = e || window.event;
+            that.fnmove(e);
+        };
+        document.onmouseup =function(e){
+            var e = e || window.event;
+            that.fnup(e);
+        };
+
+
+    };
+    Drag.prototype.fnmove=function(e) {
+        var that=this;
+
+        that.oDiv.style.left = e.clientX - that.dirX + 'px';
+        that.oDiv.style.top = e.clientY - that.dirY + 'px';
+    };
+    Drag.prototype.fnup=function() {
+        document.onmousemove = null;
+        document.onmouseup  = null;
+
+    };
+</script>
+</body>
+</html>

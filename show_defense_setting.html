@@ -1,0 +1,364 @@
+<!--#include virtual="/html/common/header.html"-->
+<!--#include virtual="/include_css.php?file=mobile/css/discount.css"-->
+<!--#include virtual="/include_css.php?file=mobile/css/mjs.css"-->
+<!--#include virtual="/include_css.php?file=mobile/css/layout.css"-->
+<!--#include virtual="/include_css.php?file=mobile/css/rate.css"-->
+<!--#include virtual="/include_css.php?file=mobile/css/mui.picker.min.css"-->
+
+<div class="mui-off-canvas-wrap mui-slide-in overflow-auto " id="defense-content">
+	<!-- 菜单容器 -->
+	
+	<div class="mui-inner-wrap hide">
+		<!-- 主页面标题 -->
+		<div class="mui-content auto-rate mui-content-m-0">
+			<div class="bg1">
+				<div class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-primary">
+					<a id="rSet" class="mui-control-item sta_1 mui-active" v-on:tap="showSetting">差评防御</a>
+					<a id="rNote" class="mui-control-item sta_2" v-on:tap="showNote">防御日志</a>
+				</div>
+			</div>			
+			<div id="rate_setting" v-show="isShow">
+				<form id="defense_set_content">
+				<div id="defenseSetting">
+					<div>
+						<h5>设置防御条件</h5>
+						<ul class="mui-table-view defense cha-denfense">
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										买家注册时间小于等于 <input type="number" name="register_date" v-bind:value="infos.register_date" max="90" min="1" class="number_limit">天
+									</label>
+									<input name="switch_register_date" value="1" type="checkbox" v-bind:checked="parseInt(infos.switch_register_date)">
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										买家信用积分小于等于 <input type="number" name="credit" v-bind:value="infos.credit" max="150" min="1" class="number_limit">
+									</label>
+									<input name="switch_credit" value="1" type="checkbox" v-bind:checked="parseInt(infos.switch_credit)">
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										买家收到的好评率小于等于 <input type="number" name="good_rate" v-bind:value="infos.good_rate" max="99" min="1" class="number_limit"> %
+									</label>
+									<input name="switch_good_rate" value="1" type="checkbox" v-bind:checked="parseInt(infos.switch_good_rate)">
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										半年内买家给出的好评率小于 <input type="number" name="give_good_rate_180" v-bind:value="infos.give_good_rate_180" max="100" min="1" class="number_limit"> %
+									</label>
+									<input name="switch_give_good_rate_180" value="1" type="checkbox" v-bind:checked="parseInt(infos.switch_give_good_rate_180)">
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										半年内给我退款次数大于 <input type="number" name="refund_total_180" v-bind:value="infos.badrate_total_180" max="999" min="0" class="number_limit"> 个
+									</label>
+									<input name="switch_refund_total_180" value="1" type="checkbox" v-bind:checked="parseInt(infos.switch_refund_total_180)">
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										半年内给我中差评数大于 <input type="number" name="badrate_total_180" v-bind:value="infos.badrate_total_180" max="999" min="0" class="number_limit"> 个
+									</label>
+									<input name="switch_badrate_total_180" value="1" type="checkbox" v-bind:checked="parseInt(infos.switch_badrate_total_180)">
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										单次购买总价小于 <input type="number" name="min_order_price" v-bind:value="infos.min_order_price" style="width:30%" max="100" min="0.01" maxlength="6" class="float_limit"> 元
+									</label>
+									<input name="switch_min_order_price" value="1" type="checkbox" v-bind:checked="parseInt(infos.switch_min_order_price)">
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										单次购买总价超过<input type="number" name="order_price" v-bind:value="infos.order_price" style="width:30%" max="99999.99" min="0" maxlength="8" class="float_limit"> 元
+									</label>
+									<input name="switch_order_price" value="1" type="checkbox" v-bind:checked="parseInt(infos.switch_order_price)">
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										同时被  <input type="number" name="block_total" v-bind:value="infos.block_total" style="width:10%" max="99" min="0" class="number_limit"> 个以上卖家收录为黑名单的买家
+									</label>
+									<input name="switch_block_total" value="1" type="checkbox" v-bind:checked="parseInt(infos.switch_block_total)">
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										单次购买宝贝数量超过 <input type="number" name="buy_count" v-bind:value="infos.buy_count" max="1000" min="0" class="number_limit" style="width:15%"> 件
+									</label>
+									<input name="switch_buy_count" value="1" type="checkbox" v-bind:checked="parseInt(infos.switch_buy_count)">
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										<span>收货地址包含:</span> <input class="ellipsis-input" type="text" placeholder="逗号隔开多个地址" name="filter_address" v-bind:value="infos.filter_address"/>
+									</label>
+									<input name="switch_filter_address" value="1" type="checkbox" v-bind:checked="parseInt(infos.switch_filter_address)">
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										评价黑名单过滤
+									</label>
+									<input name="filter_blacklist" value="1" type="checkbox" v-bind:checked="parseInt(infos.filter_blacklist)">
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										评价白名单过滤
+									</label>
+									<input name="filter_whitelist" value="1" type="checkbox" v-bind:checked="parseInt(infos.filter_whitelist)">
+								</div>
+							</li>
+						</ul>						
+					</div>
+				</div>
+				<div id="openDefense">
+					<div>
+						<h5>设置订单处理</h5>
+						<ul class="mui-table-view defense defense-order" id="buyerSet">
+							<li class="mui-table-view-cell" id="qClose" v-on:tap="setReason">
+								<div class="mui-input-row mui-radio mui-left">
+									<label class="mui-navigate-right">
+										关闭订单，设置关闭理由
+									</label>
+									<input name="order_handle_type" value="1" type="radio" v-bind:checked="orderSet==1">
+								</div>
+							</li>
+							<li class="mui-table-view-cell" id="qOpen" v-on:tap="setQizhi">
+								<div class="mui-input-row mui-radio mui-left">
+									<label class="mui-navigate-right">
+										不关闭订单，设置备注+旗帜提醒
+									</label>
+									<input name="order_handle_type" value="2" type="radio" v-bind:checked="orderSet==2">
+								</div>
+							</li>
+						</ul>
+						<h5>设置买家处理</h5>
+						<ul class="mui-table-view defense">
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										把买家加入到黑名单
+									</label>
+									<input name="switch_add_blacklist" value="1" type="checkbox" v-bind:checked="parseInt(infos.switch_add_blacklist)">
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-input-row mui-checkbox mui-left">
+									<label>
+										把买家加入到禁止购买名单
+									</label>
+									<input name="switch_add_forbidlist" value="1" type="checkbox" v-bind:checked="parseInt(infos.switch_add_forbidlist)">
+								</div>
+							</li>
+						</ul>
+						<div id="save_open" class="hide m-b-15 p-b-5 mui-clearfix">
+							<input type="button" value="开启中差评防御" class="exp-submits mui-btn-primary m-t-10 mui-btn-block" v-on:tap="saveDefense(1)">
+						</div>
+						<div class="when_open hide m-b-15 p-b-5 mui-clearfix" id="closeBtn">
+							<input type="button" id="close" value="关闭中差评防御" class="exp-reset m-t-10" v-on:tap="saveDefense(0)">
+							<input type="button" id="save_change" value="保存修改" class="exp-submit mui-btn-primary m-t-10" v-on:tap="saveDefense(1)">
+						</div>
+					</div>
+				</div>
+				</form>
+			</div>
+			<div id="rate_note" v-show="!isShow">
+				<div class="rate-note">
+					<ul class="mui-table-view bg1 ">
+						<li class="search mui-table-view-cell bg-color">
+							<!--<p class="editName">-->
+								<!--<span class="mui-icon mui-icon-search" v-on:tap="defenseLog(1)"></span>-->
+								<!--<input type="text" name="tid" placeholder="请输入账号名称" v-on:keyup.enter="defenseLog(1)">-->
+							<!--</p>-->
+							<div class="searchModal smodalindex row no-gutter f6f7fb" id="search_box" style="display: block;">
+								<div class="search-input-none hidden">
+									<div class="mui-input-row mui-search">
+										<input id="search" placeholder="" class="searchinput" type="search" name="tid" v-on:keyup.enter="defenseLog(1)">
+										<span class="mui-placeholder">
+											<span class="mui-icon mui-icon-search"></span>
+											<span>请输入订单编号/买家账号</span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="mui-table-view rate-table">
+						<li v-for="(log, index) in logs" class="mui-table-view-cell">
+							<div class=""><strong class="ellipsis-40 i-block" v-text="log.buyer_nick"></strong>&nbsp;<em v-text="log.handle_type=='1'?'关闭':'备注'"></em><span class="mui-pull-right" v-text="log.tid"></span></div>
+							<div><span class="ellipsis-40 i-block" v-text="log.handle_reason"></span><span
+									class="mui-pull-right" v-text="log.handle_time"></span></div>
+						</li>
+					</ul>
+					<div class="there-inactive hide"><i class="icon-wraning"></i><br/>无防御记录</div>
+				</div>
+			</div>
+		</div>
+		<div class="mui-off-canvas-backdrop"></div>
+	</div>
+	<aside id="offCanvasSide" class="mui-off-canvas-right bg3">
+		<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+			<div id="drag-content" class="mui-scroll zt-table-view-radio scroll-fixed">
+				<div class="side-footer mui-row text-center m-t-10 m-b-10 p-l-10 p-r-10">
+					<div class="mui-col-xs-6 p-r-5">
+						<button type="button" class="modal-dismiss mui-btn block-btn p-t-8 p-b-8"
+								v-on:tap="canvasCancel">取消
+						</button>
+					</div>
+					<div class="mui-col-xs-6 p-l-5">
+						<button type="button" class="modal-dismiss mui-btn mui-btn-primary block-btn p-t-8 p-b-8"
+								data-dismiss="ok" v-on:tap="canvasSubmit">确认
+						</button>
+					</div>
+				</div>
+				<div class="side-content " id="sideContent">
+					<form id="order_set_content">
+						<div id="close_info">
+							<ul class="mui-table-view mui-table-view-radio bg1">
+								<li v-for="(item, index) in items" class="mui-table-view-cell" v-bind:class="{'mui-selected':infos.order_close_reason==index}">
+									<a class="mui-navigate-right" v-text="index"></a>
+								</li>
+							</ul>
+							<div class="m-t-15"></div>
+							<ul class="mui-table-view defense bg1 cell-no-height">
+								<li class="mui-table-view-cell">
+									<div class="mui-input-row mui-checkbox mui-left">
+										<label>
+											因秒付而关闭失败的订单，设置订单备注+旗帜提醒
+										</label>
+										<input name="fail_order_handle_type" value="1" type="checkbox" v-bind:checked="infos.fail_order_handle_type">
+									</div>
+								</li>
+								<li  class="mui-table-view-cell qizhi">
+									<div class="mui-input-row mui-radio mui-left">
+										<label><i class="q_icon q1"></i></label>
+										<input name="fail_order_note_flag" value="0" type="radio" v-bind:checked="infos.fail_order_note_flag==0">
+									</div>
+									<div class="mui-input-row mui-radio mui-left">
+										<label><i class="q_icon q2"></i></label>
+										<input name="fail_order_note_flag" value="1" type="radio" v-bind:checked="infos.fail_order_note_flag==1">
+									</div>
+									<div class="mui-input-row mui-radio mui-left">
+										<label><i class="q_icon q3"></i></label>
+										<input name="fail_order_note_flag" value="2" type="radio" v-bind:checked="infos.fail_order_note_flag==2">
+									</div>
+									<div class="mui-input-row mui-radio mui-left">
+										<label><i class="q_icon q4"></i></label>
+										<input name="fail_order_note_flag" value="3" type="radio" v-bind:checked="infos.fail_order_note_flag==3">
+									</div>
+									<div class="mui-input-row mui-radio mui-left">
+										<label><i class="q_icon q5"></i></label>
+										<input name="fail_order_note_flag" value="4" type="radio" v-bind:checked="infos.fail_order_note_flag==4">
+									</div>
+									<div class="mui-input-row mui-radio mui-left">
+										<label><i class="q_icon q6"></i></label>
+										<input name="fail_order_note_flag" value="5" type="radio" v-bind:checked="infos.fail_order_note_flag==5">
+									</div>
+								</li>
+								<li class="mui-table-view-cell defense-input">
+									<input type="text" placeholder="请输入备注" name="fail_order_note_msg" v-bind:value="infos.fail_order_note_msg"/>
+								</li>
+							</ul>
+						</div>
+
+						<div id="unclose_info">
+							<ul class="mui-table-view defense bg1 cell-no-height p-t-10">
+								<li class="mui-table-view-cell">
+									<div class="mui-input-row">
+										不关闭订单，设置订单备注+旗帜提醒
+									</div>
+								</li>
+								<li  class="mui-table-view-cell qizhi">
+									<div class="mui-input-row mui-radio mui-left">
+										<label><i class="q_icon q1"></i></label>
+										<input name="order_note_flag" value="0" type="radio" v-bind:checked="infos.order_note_flag==0">
+									</div>
+									<div class="mui-input-row mui-radio mui-left">
+										<label><i class="q_icon q2"></i></label>
+										<input name="order_note_flag" value="1" type="radio" v-bind:checked="infos.order_note_flag==1">
+									</div>
+									<div class="mui-input-row mui-radio mui-left">
+										<label><i class="q_icon q3"></i></label>
+										<input name="order_note_flag" value="2" type="radio" v-bind:checked="infos.order_note_flag==2">
+									</div>
+									<div class="mui-input-row mui-radio mui-left">
+										<label><i class="q_icon q4"></i></label>
+										<input name="order_note_flag" value="3" type="radio" v-bind:checked="infos.order_note_flag==3">
+									</div>
+									<div class="mui-input-row mui-radio mui-left">
+										<label><i class="q_icon q5"></i></label>
+										<input name="order_note_flag" value="4" type="radio" v-bind:checked="infos.order_note_flag==4">
+									</div>
+									<div class="mui-input-row mui-radio mui-left">
+										<label><i class="q_icon q6"></i></label>
+										<input name="order_note_flag" value="5" type="radio" v-bind:checked="infos.order_note_flag==5">
+									</div>
+								</li>
+								<li class="mui-table-view-cell defense-input">
+									<input type="text" placeholder="请输入备注" name="order_note_msg" v-bind:value="infos.order_note_msg"/>
+								</li>
+							</ul>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</aside>
+	
+</div>
+<!--#include virtual="/include_js.php?file=mobile/js/mui.picker.min.js"-->
+<!--#include virtual="/include_js.php?file=mobile/js/rate.min.js"-->
+<script type="text/javascript" charset="utf-8">
+	Rate.initDefense();
+	//差评防御用户体验度修改
+
+	//数值限制
+	$('body').on('input','.number_limit',function(){
+		var max = parseInt($(this).attr('max'));
+		var min = parseInt($(this).attr('min'));
+
+		var val = $(this).val();
+		val = parseInt(val.replace(/[^0-9]/ig,"")); 
+		if( val < min ){
+			val = min;
+		}else if( val > max ){
+			val = max;
+		}
+		$(this).val(val);
+	})
+	$('body').on('input','.float_limit',function(){
+		var max = parseFloat($(this).attr('max'));
+		var min = parseFloat($(this).attr('min'));
+
+		var val = $(this).val();
+		val = parseFloat(val.replace(/[^\d.]/g, "")); 
+		if( val < min ){
+			val = min;
+		}else if( val > max ){
+			val = max;
+		}else{
+			val=Math.round(val*100)/100;
+		}
+		$(this).val(val);
+	})
+</script>
+<!--#include virtual="/html/common/footer.html"-->

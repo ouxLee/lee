@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js原生放大镜</title>
+    <style>
+    *{margin:0;padding:0;
+    box-sizing: border-box;
+    }
+    .box{
+        border:1px solid #ddd;
+    width:300px;height:300px;position:relative;
+        overflow: hidden;
+    }
+    .box img{
+    max-width:100%;
+    max-height:100%;
+    }
+    .box span{
+    position: absolute;
+    top:0;
+    left:0;
+   background: #000;opacity: .5;filter: alpha(opacity=50);
+    height:100px;display: none;
+    width: 100px;
+    }
+        div input{
+            display: inline-block;
+        }
+        input[type="button"]{
+            margin-left:-4px;
+        }
+        .show{
+            width:800px;height:600px;
+            position: absolute;right:0;top:0;
+            overflow: hidden;
+            border: 1px solid #ddd;;
+        }
+    .show img{
+        position: absolute;left:0;top:0;
+    }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <img src="img/2.jpg" alt=""/>
+    <span></span>
+</div>
+<div class="show" id="show">
+    <img src="img/2.jpg" alt=""/>
+</div>
+<script>
+    window.onload=function(){
+        var box=document.getElementById('box');
+        var span=box.getElementsByTagName('span')[0];
+        var show=document.getElementById('show');
+        var img=show.getElementsByTagName('img')[0];
+        box.onmouseenter=function(){
+            span.style.display='block';
+        };
+        box.onmouseleave=function(){
+            span.style.display='none';
+        };
+        box.onmousemove=function(e){
+            var e=e||window.event;
+            var L= e.clientX-box.offsetLeft-span.offsetWidth/2;
+            var T= e.clientY-box.offsetTop-span.offsetHeight/2;
+//            console.log(e.clientX,box.offsetLeft,span.offsetWidth,left,top);
+            if(L<0){
+                L=0;
+            }else if(L>box.offsetWidth-span.offsetWidth){
+                L=box.offsetWidth-span.offsetWidth;
+            }
+            if(T<0){
+                T=0;
+            }else if(T>box.offsetHeight-span.offsetHeight){
+                T=box.offsetHeight-span.offsetHeight;
+            }
+            var scaleX=L/(box.offsetWidth-span.offsetWidth);
+            var scaleY=T/(box.offsetHeight-span.offsetHeight);
+            span.style.left=L+'px';
+            span.style.top=T+'px';
+            img.style.left=scaleX*(show.offsetWidth-img.offsetWidth)+'px';
+            img.style.top=scaleY*(show.offsetHeight-img.offsetHeight)+'px';
+        };
+    }
+</script>
+</body>
+</html>
